@@ -26,6 +26,6 @@ If there is a problem in running the docker services, try stopping the container
 - ``` docker stop $(docker ps -a -q) ```
 - ``` docker rm $(docker ps -a -q) ```
 
-If one of the applications doesn't start owing to any ports in use, try killing the processes explicitly (Though, this has been handled in run.sh)
+If one of the applications doesn't start, verify if any ports are in use and try killing the processes explicitly (Though, this has been handled in run.sh)
 - ```kill $(lsof -t -i :8082)```
 - ```kill $(lsof -t -i :8083)```
