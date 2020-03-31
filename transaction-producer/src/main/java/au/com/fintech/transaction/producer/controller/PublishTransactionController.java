@@ -1,33 +1,34 @@
 package au.com.fintech.transaction.producer.controller;
 
-import au.com.fintech.transaction.producer.model.FutureTransaction;
+import au.com.fintech.transaction.producer.service.TransactionService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.kafka.core.KafkaTemplate;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
-@RequestMapping("publish/transaction")
+@RestController
+@RequestMapping("publish")
 public class PublishTransactionController {
 
-    private KafkaTemplate<String, FutureTransaction> kafkaTemplate;
-    private String topicName;
+    private static final Logger LOGGER = LoggerFactory.getLogger(PublishTransactionController.class);
+
+    private TransactionService service;
+
 
     @Autowired
-    public PublishTransactionController(final KafkaTemplate<String, FutureTransaction> kafkaTemplate,
-                                        @Value("${publish.transaction.kafka.topic.name}") final String topicName) {
-        this.kafkaTemplate = kafkaTemplate;
-        this.topicName = topicName;
+    public PublishTransactionController(final TransactionService service) {
+        this.service = service;
     }
 
     @GetMapping
-    public String sendTransaction() {
+    public String publishTransactions() {
+        LOGGER.info("Starting to publish new Transaction messages");
+        service.publishTransactions();
+        LOGGER.info("Publishing new Transaction messages completed");
 
-        kafkaTemplate.send(topicName, new FutureTransaction("initial test value"));
-
-        return "Published successfully";
+        return "Transactions Published successfully";
     }
 }
 

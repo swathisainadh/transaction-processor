@@ -1,3 +1,6 @@
 .idea
 *.iml
 transaction-producer/target
+transaction-producer/logs
+transaction-consumer/target
+transaction-consumer/logs

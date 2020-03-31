@@ -1,3 +1,8 @@
+#!/bin/bash
+#Pull the required docker images and run them as daemon
 cd .. && docker-compose up -d
-echo docker ps
-cd ../transaction-producer && mvn clean install && java -jar target/transaction-producer-0.0.1-SNAPSHOT.jar
+#If any services are running on 8082 & 8083, it would kill those processes
+kill $(lsof -t -i :8082)
+kill $(lsof -t -i :8083)
+cd ../transaction-producer && ./mvnw spring-boot:run &
+cd ../transaction-consumer && ./mvnw spring-boot:run
