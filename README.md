@@ -18,7 +18,7 @@ Sample Output.csv has been included in the Project for reference
 - Execute 'run.sh' from application-starter/bin
 - This would run postgres and kafka using docker and starts up the Producer and Consumer Application
 - Navigate to  http://localhost:8082 to view the home page for Daily Summary Report (JSON & CSV)
-- Log file for the respective applications can be found in their respective logs/spring-boot-logger.log
+- Log file for the respective applications can be found in their logs/spring-boot-logger.log after running the script
 
 ## Troubleshooting
 
